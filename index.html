@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaMonitor Live | Jimma University</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a73e8; --danger: #d93025; --success: #188038; --bg: #f8f9fa;
+        }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #3c4043; }
+        .container { max-width: 900px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 40px; border-bottom: 2px solid #dee2e6; padding-bottom: 20px; }
+        
+        /* Connection Bar */
+        .status-bar { display: flex; justify-content: space-between; align-items: center; background: white; padding: 15px 25px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        #connectBT { background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        #connectBT.connected { background: var(--success); }
+
+        /* Grid Layout */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; position: relative; overflow: hidden; }
+        .card i { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
+        .value { font-size: 3rem; font-weight: bold; margin: 10px 0; display: block; }
+        .unit { font-size: 1.2rem; color: #70757a; }
+        
+        /* Pulse Animation for Live Data */
+        .pulse { width: 12px; height: 12px; background: var(--success); border-radius: 50%; display: inline-block; margin-right: 8px; }
+        .active-pulse { animation: pulse-red 2s infinite; }
+        @keyframes pulse-red { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="https://www.ju.edu.et/wp-content/uploads/2021/06/JU-Logo.png" alt="JU Logo" style="height: 60px;">
+            <h1>Smart Water Quality Monitor</h1>
+            <p>Electrical & Computer Engineering CBTP - Group 4</p>
+        </header>
+
+        <div class="status-bar">
+            <div>
+                <span id="pulse-dot" class="pulse"></span>
+                Status: <strong id="status-text">Disconnected</strong>
+            </div>
+            <button id="connectBT"><i class="fas fa-bluetooth"></i> CONNECT SENSOR</button>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <i class="fas fa-flask"></i>
+                <div class="label">pH Level</div>
+                <span class="value" id="ph-val">0.0</span>
+                <span class="unit">Potential Hydrogen</span>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-thermometer-half"></i>
+                <div class="label">Temperature</div>
+                <span class="value" id="temp-val">0.0</span>
+                <span class="unit">°Celsius</span>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-water"></i>
+                <div class="label">Turbidity</div>
+                <span class="value" id="turb-val">0.0</span>
+                <span class="unit">NTU (Clarity)</span>
+            </div>
+        </div>
+
+        <p style="text-align: center; margin-top: 40px; font-size: 0.9rem; color: #888;">
+            Real-time data bridge via Web Bluetooth API (HC-05)
+        </p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
